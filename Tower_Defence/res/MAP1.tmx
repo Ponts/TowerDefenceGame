@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="sewer_tileset" tilewidth="32" tileheight="32">
+  <image source="C:/Program Files (x86)/Tiled/examples/sewer_tileset.png" width="192" height="217"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2CEOw1AQQ8EPc4De/6wFQWYNSG0wI/kED6y01znnGhi3dgc9UruDHqndQY/0+dP0+I0eW/TY8uZN0OM5PbbosUWPLXps0WOLHlv02KLHFj22+Jds0WOLHlvevB9Pxq3dQY/U7qBHanfQI7U76JHaHfRI7Q56pHYHPVK7gx6p3UEPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACATV+gQSiZ
+  </data>
+ </layer>
+</map>

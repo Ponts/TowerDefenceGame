@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="18" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32">
+  <image source="../../Pictures/tileset.png" width="544" height="1200"/>
+ </tileset>
+ <layer name="Road" width="25" height="18" visible="0">
+  <properties>
+   <property name="road" value="1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgwARmjFgEqQyGqx0gPjKmlR245MgFB/DYSU1/IOOLeOzDhqlhPzY2PrGBtgNbOKxHkl+PQw+pdpAqTw87LmIKUd0OasTHAQb86XS4lnVD1Q5sAAC7c0CICAcAAA==
+  </data>
+ </layer>
+ <layer name="Scenery" width="25" height="18" visible="0">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC9WUYQqAIAxG3SU6bHWD6gbVlcSTdIUWIUxZblpGDT6C9vT9aMuY96shzzvROBzUd7To6DA98AyNhZDXOgZkR8wkOAzDax0zsgtmTTgs6VFe65CYFKdxcNngzBOOK9dxv63gkPwxx71Lnad8PJe07yA8W+qI55L2ub0ocdC59Pvvvw23F7kOqbi9KJ3dnP/UFxx/rR3gwt7GCAcAAA==
+  </data>
+ </layer>
+ <layer name="collision" width="25" height="18">
+  <properties>
+   <property name="Collision" value="1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC82T7QnCMBCGc8W6gXUAxY//ih8TCE6gbiBOoG6gbqCuVJygI7iCb2kCl7O1sangwUOhebmnpHeBUirQNECosgo9abK+nBaItCPypF3gWDDHg37v2MNxAEdSbyX7xWTnXR0nZM/goh2JRjp6OO+TnXd1XJG9gfsHR/r9EzAlO+/qkJXnKCoXRx5PypCORODi6KBPN2em0v5xTY4R+oyp/C74Hg2QH5L9zvWuTF7OJT9P92gG5p4OOZf8XPqrOvhcmv03/0b6qzjKSu7Ft44q/INjBdaeKP3cFDi2YFkTO9b3BZ0veIAIBwAA
+  </data>
+ </layer>
+</map>
