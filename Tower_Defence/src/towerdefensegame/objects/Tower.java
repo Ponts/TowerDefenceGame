@@ -1,7 +1,9 @@
 package towerdefensegame.objects;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 
 public class Tower {
 	private String name;
@@ -34,15 +36,12 @@ public class Tower {
 		// else if jaadaaa jadaaa
 	}
 	
-	public void act(){
-		shoot();
+	public Bullet act(Enemy enemy, GameContainer container){
+		
+		return new Bullet();
 	}
 	
-	private void shoot(){
-		// TODO
-		//if target within range
-		//call target take damage method?
-	}
+	
 	
 	private void upgrade(){
 		this.damage *= upgradeMultiplier;

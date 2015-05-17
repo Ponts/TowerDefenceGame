@@ -24,7 +24,7 @@ public class levelOne extends BasicGameState {
 	
 	private float circleX;
 	private float circleY;
-	
+	private boolean roundStarted;
 	private int baseHealth;
 	
 	
@@ -54,7 +54,9 @@ public class levelOne extends BasicGameState {
 		Input input = container.getInput();
 		boolean rightMousePressed = input.isMousePressed(input.MOUSE_RIGHT_BUTTON);
 		boolean leftMousePressed = input.isMousePressed(input.MOUSE_LEFT_BUTTON);
-		boolean roundStarted = input.isKeyPressed(input.KEY_ENTER);
+		if(input.isKeyPressed(input.KEY_ENTER)){
+			roundStarted=true;
+		}
 		if(input.isKeyPressed(input.KEY_ESCAPE)) {
 			sbg.enterState(getID()-1);
 		}

@@ -26,11 +26,14 @@ public class LevelTwo extends BasicGameState {
 	private TiledMap map = null;
 	private int x = 0;
 	private int y = 0;
+	private int roundNo;
 	private ArrayList<Tower> towers;
 	private ArrayList<Enemy> enemies;
 	private Player player;
 	private PathFinder ph;
 	private Path path;
+	boolean startRound = false;
+	private ArrayList<Bullet> bullets;
 	
 	public LevelTwo(int id){
 		this.ID = id;
@@ -43,13 +46,13 @@ public class LevelTwo extends BasicGameState {
 		towers = new ArrayList<>();
 		enemies = new ArrayList<>();
 		player = new Player();
-		
+		bullets = new ArrayList<>();
 		LayerBasedMap blockedMap = new LayerBasedMap(map, 1);
-		// Add enemies
-		enemies.add(new Enemy("cactiball", 5*32, 0, 50));
+		newRound();
+		
+		// TODO pathing stuff
 		ph = new AStarPathFinder(blockedMap, 1000, false);
-		// TODO
-		path = ph.findPath(enemies.get(0), 5,0,20,16 );
+		
 		
 		
 	}
@@ -64,10 +67,11 @@ public class LevelTwo extends BasicGameState {
 			g.drawImage(t.getSprite(), t.getX(), container.getHeight() - t.getY());
 		}
 		
-		
+		if(startRound){
 		for(Enemy e:enemies){
 		e.render(container, sbg, g);
 		g.destroy();
+			}
 		}
 		
 		
@@ -82,12 +86,16 @@ public class LevelTwo extends BasicGameState {
 		Input input = container.getInput();
 		int xPos = Mouse.getX();
 		int yPos = Mouse.getY();
-		
-		
+		if(input.isKeyPressed(input.KEY_ENTER)){
+			newRound();
+			startRound = true;
+			
+		}
 		
 		container.setMouseGrabbed(true);
 		x = xPos;
 		y = container.getHeight()-yPos;
+		
 		//go back to level select
 		if(input.isKeyPressed(input.KEY_ESCAPE)) {
 			sbg.enterState(1);
@@ -114,12 +122,13 @@ public class LevelTwo extends BasicGameState {
 		/*for(Tower tower : towers) {
 			tower.act();
 		}*/
+		//tower act
+		towerAct(container);
 		
-		checkTowerRange(container);
 		
-		
+		if(startRound){
 		startRound(delta);
-			
+		}
 		
 		//Make enemies move TODO
 		//enemy.move(path);
@@ -132,15 +141,16 @@ public class LevelTwo extends BasicGameState {
 		return ID;
 	}
 
-	private void checkTowerRange(GameContainer container){
+	private void towerAct(GameContainer container){
 		for(Tower t:towers){
 			Enemy e;
 			for(int i = enemies.size() -1; i >= 0; i-- ){
 				e = enemies.get(i);
 				float X = e.getX();
-				float Y = e.getY();
-				if(t.getX() -X<t.getRange() && container.getHeight() - t.getY() - Y<t.getRange()){
-					enemies.remove(e);
+				float Y = e.getY();				
+				if(t.getX() -X<t.getRange() && (-container.getHeight() +t.getY() + Y) < t.getRange()){
+					//TODO change to tower.shoot method!
+					player.getMoney(e.getBounty());
 				}
 			}
 		}
@@ -157,6 +167,7 @@ public class LevelTwo extends BasicGameState {
 	}
 	
 	private void startRound(int delta){
+		
 		Enemy c;
 		for(int i = enemies.size() -1; i >= 0; i-- ){
 			
@@ -187,9 +198,20 @@ public class LevelTwo extends BasicGameState {
 			}
 			else{
 				enemies.remove(c);
-				
-				
 			}
+			
+			if(enemies.isEmpty()){
+				startRound = false;
 			}
+		}
 	}
+	
+	
+	private void newRound() throws SlickException{
+		for(int i = 0; i<roundNo;i++){
+			enemies.add(new Enemy("cactiball", 5*32, 0-(i*64), 50));
+		}
+		roundNo++;
+	}
+	
 }
