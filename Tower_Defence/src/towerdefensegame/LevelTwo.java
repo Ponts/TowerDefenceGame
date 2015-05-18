@@ -19,6 +19,7 @@ import org.newdawn.slick.util.pathfinding.PathFinder;
 
 
 
+
 import towerdefensegame.objects.*;
 
 public class LevelTwo extends BasicGameState {
@@ -34,6 +35,7 @@ public class LevelTwo extends BasicGameState {
 	private Path path;
 	boolean startRound = false;
 	private ArrayList<Bullet> bullets;
+	private LayerBasedMap blockedMap;
 	
 	public LevelTwo(int id){
 		this.ID = id;
@@ -47,12 +49,12 @@ public class LevelTwo extends BasicGameState {
 		enemies = new ArrayList<>();
 		player = new Player();
 		bullets = new ArrayList<>();
-		LayerBasedMap blockedMap = new LayerBasedMap(map, 1);
+		blockedMap = new LayerBasedMap(map, 2, 32);
 		newRound();
 		
 		// TODO pathing stuff
 		ph = new AStarPathFinder(blockedMap, 1000, false);
-		
+		path = ph.findPath(null, 5, 0, 20, 16);
 		
 		
 	}
@@ -70,8 +72,12 @@ public class LevelTwo extends BasicGameState {
 		if(startRound){
 		for(Enemy e:enemies){
 		e.render(container, sbg, g);
-		g.destroy();
+		
 			}
+		}
+		
+		for(Bullet b: bullets){
+			b.render(container, sbg, g);
 		}
 		
 		
@@ -118,20 +124,39 @@ public class LevelTwo extends BasicGameState {
 			Tower tower = new Tower("mortar", xPos, yPos);
 		}*/
 		
-		//Towers act TODO
-		/*for(Tower tower : towers) {
-			tower.act();
-		}*/
-		//tower act
+		
 		towerAct(container);
 		
-		
+		// Start the round
 		if(startRound){
-		startRound(delta);
+			Enemy c;
+			for(int i = enemies.size() -1; i >= 0; i-- ){
+				c=enemies.get(i);
+				c.update( delta,path);
+				if(c.getX() <= 20*32 && c.getY()>=16*31){
+					enemies.remove(c);
+					player.takeDamage(c.getDamage());
+					if(player.getHealth()<=0){
+						sbg.enterState(0);
+						System.out.println("Game Over");
+					}
+				}
+				
+			}
+		
 		}
 		
+		Bullet b;
+		for(int i = bullets.size()-1;i>= 0;i--){
+			b = bullets.get(i);
+			b.update(delta);
+			if(b.reached()){
+				bullets.remove(b);
+			}
+		}
 		//Make enemies move TODO
 		//enemy.move(path);
+		
 		
 	}
 
@@ -141,16 +166,22 @@ public class LevelTwo extends BasicGameState {
 		return ID;
 	}
 
-	private void towerAct(GameContainer container){
+	private void towerAct(GameContainer container) throws SlickException{
 		for(Tower t:towers){
 			Enemy e;
+			t.reloading();
 			for(int i = enemies.size() -1; i >= 0; i-- ){
 				e = enemies.get(i);
-				float X = e.getX();
-				float Y = e.getY();				
-				if(t.getX() -X<t.getRange() && (-container.getHeight() +t.getY() + Y) < t.getRange()){
-					//TODO change to tower.shoot method!
-					player.getMoney(e.getBounty());
+				if(t.shootReady(e, container)){
+					float X = e.getX();
+					float Y = e.getY();	
+					bullets.add(new Bullet(t.getX(),container.getHeight() - t.getY(),X,Y));
+					t.reload();
+					e.takeDamage((t.getDamage()));
+					if(!e.isAlive()){
+						player.getMoney(e.getBounty());
+						enemies.remove(e);
+					}
 				}
 			}
 		}
@@ -168,48 +199,45 @@ public class LevelTwo extends BasicGameState {
 	
 	private void startRound(int delta){
 		
+		
 		Enemy c;
 		for(int i = enemies.size() -1; i >= 0; i-- ){
 			
-			
 			c = enemies.get(i);
-			float circleX = c.getX();
-			float circleY = c.getY();
-			if(circleY < 45){
-				c.setY(circleY + delta/6f);
-			}
-			else if(circleX < 356 && circleY >= 45 && circleY < 47) {
-				c.setX(circleX + delta/6f);
-			}
-			else if(circleX >= 356 && circleY < 118){
-				c.setY(circleY + delta/6f);
-			}
-			else if(circleX > 44 && circleY >= 118 && circleY < 121){
-				c.setX(circleX - delta/6f);
-			}
-			else if(circleX <= 44 && circleY <= 191){
-				c.setY(circleY + delta/6f);
-			}
-			else if(circleX < 355 && circleY >= 191 && circleY < 200){
-				c.setX(circleX + delta/6f);
-			}
-			else if(circleX >= 355 && circleY < 400){
-				c.setY(circleY + delta/6f);
+			
+			float nextX = path.getX(c.getI())*32;
+			float nextY = path.getY(c.getI())*32;
+			
+			
+			if(c.getX()>nextX){
+				c.setX(c.getX()-delta/6f);
 			}
 			else{
-				enemies.remove(c);
+				c.setX(c.getX()+delta/6f);
 			}
 			
-			if(enemies.isEmpty()){
-				startRound = false;
+			if(c.getY()>nextY){
+				c.setY(c.getY()-delta/6f);
+			} else{
+				c.setY(c.getY()+delta/6f);
 			}
+			
+			if(Math.max(c.getX(), nextX)-Math.min(c.getX(), nextX) < 2&& Math.max(c.getY(),nextY)-Math.min(c.getY(), nextY)<2){
+				c.setI(c.getI()+1);
+			}
+			
+			if(c.getX() <= 20*32 && c.getY()>=16*31){
+				enemies.remove(c);
+			
+			}
+			
 		}
 	}
 	
 	
 	private void newRound() throws SlickException{
 		for(int i = 0; i<roundNo;i++){
-			enemies.add(new Enemy("cactiball", 5*32, 0-(i*64), 50));
+			enemies.add(new Enemy("cactiball", 5*32, 0-(i*64), 10));
 		}
 		roundNo++;
 	}

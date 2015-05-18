@@ -1,5 +1,6 @@
 package towerdefensegame.objects;
 
+import java.math.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -7,7 +8,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Tower {
 	private String name;
-	private int damage, rateOfFire, range, cost, upgradeMultiplier, upgradeLevel;
+	private int damage, reloadTime, currentLoad, range, cost, upgradeMultiplier, upgradeLevel;
 	private Image sprite;
 	private float X, Y;
 	
@@ -19,7 +20,8 @@ public class Tower {
 		this.Y = yPos;
 		
 		if(name == "basic"){
-			this.rateOfFire = 5;
+			this.reloadTime = 1000;
+			this.currentLoad=0;
 			this.damage = 5;
 			this.range = 32*3;
 			this.cost = 100;
@@ -27,7 +29,8 @@ public class Tower {
 		}
 		
 		else if(name == "mortar"){
-			this.rateOfFire = 1;
+			this.reloadTime = 50;
+			this.currentLoad=0;
 			this.damage = 100;
 			this.range = 50;
 			this.cost = 40;
@@ -36,10 +39,23 @@ public class Tower {
 		// else if jaadaaa jadaaa
 	}
 	
-	public Bullet act(Enemy enemy, GameContainer container){
-		
-		return new Bullet();
+
+	public int getReloadTime(){
+		return reloadTime;
 	}
+	
+	public void reloading(){
+		currentLoad--;
+	}
+	
+	public void reload(){
+		currentLoad=reloadTime;
+	}
+	
+	public boolean shootReady(Enemy e, GameContainer container){ //TODO change to Math
+		return currentLoad<=0 && getX() -e.getX()<getRange() && (-container.getHeight() +getY() + e.getY()) < getRange() && e.getY()>0 && e.getX()>0;
+	}
+	
 	
 	
 	

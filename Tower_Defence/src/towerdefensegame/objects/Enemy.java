@@ -29,13 +29,32 @@ public class Enemy implements Mover{
 		this.y=yPos;
 		this.name = name;
 		this.bounty = bounty;
+		this.health = 10;
+		this.setI(0);
+		this.attackDamage = 10;
 	}
-	public void initTank(){
-		this.walkSpeed = 1;
-		this.attackDamage = 2;
-		this.attackSpeed = 1;
-		this.health = 500;
-		//this.special = ...
+	
+	public void update(int delta, Path road){
+		float nextX = road.getX(getI())*32;
+		float nextY = road.getY(getI())*32;
+	
+		
+		if(getX()>nextX){
+			setX(getX()-delta/6f);
+		}
+		else{
+			setX(getX()+delta/6f);
+		}
+		
+		if(getY()>nextY){
+			setY(getY()-delta/6f);
+		} else{
+			setY(getY()+delta/6f);
+		}
+		
+		if(Math.max(getX(), nextX)-Math.min(getX(), nextX) < 2&& Math.max(getY(),nextY)-Math.min(getY(), nextY)<2){
+			setI(getI()+1);
+		}
 	}
 	
 	public Image getSprite(){
@@ -82,6 +101,28 @@ public class Enemy implements Mover{
 	
 	public void setY(float y){
 		this.y=y;
+	}
+	
+	public boolean isAlive() {
+		return health>0;
+	}
+
+
+	public int getI() {
+		return i;
+	}
+
+
+	public void setI(int i) {
+		this.i = i;
+	}
+
+	public int getDamage() {
+		return attackDamage;
+	}
+
+	public void setAttackDamage(int attackDamage) {
+		this.attackDamage = attackDamage;
 	}
 }
 

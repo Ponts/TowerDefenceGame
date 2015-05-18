@@ -21,7 +21,7 @@ public class Player {
 	}
 	
 	public void takeDamage(int damage){
-		health += -damage;
+		health = health -damage;
 	}
 	
 	public int getMoney(){
