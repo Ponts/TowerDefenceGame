@@ -52,8 +52,10 @@ public class Tower {
 		currentLoad=reloadTime;
 	}
 	
-	public boolean shootReady(Enemy e, GameContainer container){ //TODO change to Math
-		return currentLoad<=0 && getX() -e.getX()<getRange() && (-container.getHeight() +getY() + e.getY()) < getRange() && e.getY()>0 && e.getX()>0;
+	public boolean shootReady(Enemy e, GameContainer container){
+		float yPos = container.getHeight()-getY();
+		//TODO range is weird
+		return currentLoad<=0 &&Math.max(X, e.getX() - Math.min(X, e.getX())) > getRange()&&Math.max(yPos, e.getY()) - Math.min(yPos,e.getX()) < getRange() && e.getY()>0 && e.getX()>0;
 	}
 	
 	

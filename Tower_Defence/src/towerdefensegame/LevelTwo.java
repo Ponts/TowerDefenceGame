@@ -1,12 +1,13 @@
 package towerdefensegame;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
+import org.newdawn.slick.MusicListener;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
@@ -20,9 +21,11 @@ import org.newdawn.slick.util.pathfinding.PathFinder;
 
 
 
+
+
 import towerdefensegame.objects.*;
 
-public class LevelTwo extends BasicGameState {
+public class LevelTwo extends BasicGameState implements MusicListener{
 	private int ID;
 	private TiledMap map = null;
 	private int x = 0;
@@ -36,6 +39,7 @@ public class LevelTwo extends BasicGameState {
 	boolean startRound = false;
 	private ArrayList<Bullet> bullets;
 	private LayerBasedMap blockedMap;
+	private Music openingMenuMusic;
 	
 	public LevelTwo(int id){
 		this.ID = id;
@@ -52,7 +56,8 @@ public class LevelTwo extends BasicGameState {
 		blockedMap = new LayerBasedMap(map, 2, 32);
 		newRound();
 		
-		// TODO pathing stuff
+		
+		
 		ph = new AStarPathFinder(blockedMap, 1000, false);
 		path = ph.findPath(null, 5, 0, 20, 16);
 		
@@ -89,6 +94,7 @@ public class LevelTwo extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame sbg, int delta)
 			throws SlickException {
+		
 		Input input = container.getInput();
 		int xPos = Mouse.getX();
 		int yPos = Mouse.getY();
@@ -138,6 +144,7 @@ public class LevelTwo extends BasicGameState {
 					player.takeDamage(c.getDamage());
 					if(player.getHealth()<=0){
 						sbg.enterState(0);
+						container.setMouseGrabbed(false);
 						System.out.println("Game Over");
 					}
 				}
@@ -154,8 +161,6 @@ public class LevelTwo extends BasicGameState {
 				bullets.remove(b);
 			}
 		}
-		//Make enemies move TODO
-		//enemy.move(path);
 		
 		
 	}
@@ -197,42 +202,8 @@ public class LevelTwo extends BasicGameState {
 		player.pay(tower.getCost());
 	}
 	
-	private void startRound(int delta){
-		
-		
-		Enemy c;
-		for(int i = enemies.size() -1; i >= 0; i-- ){
-			
-			c = enemies.get(i);
-			
-			float nextX = path.getX(c.getI())*32;
-			float nextY = path.getY(c.getI())*32;
-			
-			
-			if(c.getX()>nextX){
-				c.setX(c.getX()-delta/6f);
-			}
-			else{
-				c.setX(c.getX()+delta/6f);
-			}
-			
-			if(c.getY()>nextY){
-				c.setY(c.getY()-delta/6f);
-			} else{
-				c.setY(c.getY()+delta/6f);
-			}
-			
-			if(Math.max(c.getX(), nextX)-Math.min(c.getX(), nextX) < 2&& Math.max(c.getY(),nextY)-Math.min(c.getY(), nextY)<2){
-				c.setI(c.getI()+1);
-			}
-			
-			if(c.getX() <= 20*32 && c.getY()>=16*31){
-				enemies.remove(c);
-			
-			}
-			
-		}
-	}
+
+	
 	
 	
 	private void newRound() throws SlickException{
@@ -241,5 +212,19 @@ public class LevelTwo extends BasicGameState {
 		}
 		roundNo++;
 	}
+
+	@Override
+	public void musicEnded(Music arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void musicSwapped(Music arg0, Music arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 	
 }

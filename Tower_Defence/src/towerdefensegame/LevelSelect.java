@@ -5,6 +5,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
+import org.newdawn.slick.MusicListener;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -13,7 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author Pontus
  *
  */
-public class LevelSelect extends BasicGameState {
+public class LevelSelect extends BasicGameState implements MusicListener {
  private int ID;
  private boolean levelOne = false;
  private boolean levelTwo = false;
@@ -83,6 +85,7 @@ public class LevelSelect extends BasicGameState {
 				if(levelTwo){
 					// TODO
 					sbg.enterState(3);
+					playMusic();
 				}
 				levelTwo = false;
 			}
@@ -127,4 +130,21 @@ public class LevelSelect extends BasicGameState {
 		return ID;
 	}
 
+	private void playMusic() throws SlickException{
+		Music openingMenuMusic = new Music("res//openingMusic.ogg");
+		openingMenuMusic.addListener(this);
+		openingMenuMusic.loop();
+	}
+
+	@Override
+	public void musicEnded(Music arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void musicSwapped(Music arg0, Music arg1) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -30,7 +30,7 @@ public class Enemy implements Mover{
 		this.name = name;
 		this.bounty = bounty;
 		this.health = 10;
-		this.setI(0);
+		this.i = 0;
 		this.attackDamage = 10;
 	}
 	
