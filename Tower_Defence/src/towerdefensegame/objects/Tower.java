@@ -53,11 +53,19 @@ public class Tower {
 	}
 	
 	public boolean shootReady(Enemy e, GameContainer container){
-		float yPos = container.getHeight()-getY();
+		float yPos = container.getHeight()-e.getY();
 		//TODO range is weird
-		return currentLoad<=0 &&Math.max(X, e.getX() - Math.min(X, e.getX())) > getRange()&&Math.max(yPos, e.getY()) - Math.min(yPos,e.getX()) < getRange() && e.getY()>0 && e.getX()>0;
+		
+		return currentLoad<=0 && distance(getX(), getY(), e.getX(), yPos)<getRange() && e.getY()>0 && e.getX()>0;
 	}
 	
+	private float distance(float x, float y, float X, float Y){
+		float dX = Math.max(x, X) - Math.min(x, X);
+		float dY = Math.max(y, Y) - Math.min(y,  Y);
+		System.out.println(X + " " + Y);
+		
+		return (float)Math.hypot(dX, dY);
+	}
 	
 	
 	

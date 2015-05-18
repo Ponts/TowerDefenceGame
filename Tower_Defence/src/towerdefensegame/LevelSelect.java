@@ -22,6 +22,7 @@ public class LevelSelect extends BasicGameState implements MusicListener {
  private boolean levelThree = false;
  private boolean back = false;
  
+ 
 	public LevelSelect(int state){
 		ID = state; 
 	}
@@ -132,7 +133,6 @@ public class LevelSelect extends BasicGameState implements MusicListener {
 
 	private void playMusic() throws SlickException{
 		Music openingMenuMusic = new Music("res//openingMusic.ogg");
-		openingMenuMusic.addListener(this);
 		openingMenuMusic.loop();
 	}
 
