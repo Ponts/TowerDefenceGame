@@ -20,7 +20,6 @@ public class Game extends StateBasedGame {
 		this.addState(new Meny(meny));
 		this.addState(new LevelSelect(levelSelect));
 		this.addState(new levelOne(levelOne));
-
 		this.addState(new LevelTwo(levelTwo));
 		/* this.addState(new levelThree(levelThree)); */
 
