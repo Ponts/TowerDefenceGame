@@ -216,7 +216,8 @@ public class LevelTwo extends BasicGameState {
 	}
 
 	private TiledMap load() throws SlickException {
-		return new TiledMap("res//Level2.tmx", "res//pictures//tileset.png");
+		return new TiledMap("res//Level2.tmx",
+				"res//pictures2//pictures//tileset.png");
 	}
 
 	private void doTower(Tower tower) {
