@@ -10,80 +10,84 @@ import org.newdawn.slick.MusicListener;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
 /**
  * Här ska man välja vilken bana
+ * 
  * @author Pontus
  *
  */
 public class LevelSelect extends BasicGameState implements MusicListener {
- private int ID;
- private boolean levelOne = false;
- private boolean levelTwo = false;
- private boolean levelThree = false;
- private boolean back = false;
- 
- 
-	public LevelSelect(int state){
-		ID = state; 
+	private int ID;
+	private boolean levelOne = false;
+	private boolean levelTwo = false;
+	private boolean levelThree = false;
+	private boolean back = false;
+	private Music openingMenuMusic;
+
+	public LevelSelect(int state) {
+		ID = state;
 	}
 
 	@Override
-	public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
-		
-		
+	public void init(GameContainer container, StateBasedGame sbg)
+			throws SlickException {
+
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame sbg, Graphics g) throws SlickException {
+	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
+			throws SlickException {
 		g.drawImage(new Image("res\\LevelSelect.PNG"), 0, 0);
-		
-		if(levelOne) {
+
+		if (levelOne) {
 			g.drawImage(new Image("res\\LevelSelectLevelOne.PNG"), 0, 0);
 		}
-		
-		if(levelTwo) {
+
+		if (levelTwo) {
 			g.drawImage(new Image("res\\LevelSelectLevelTwo.PNG"), 0, 0);
 		}
-		
-		if(levelThree) {
+
+		if (levelThree) {
 			g.drawImage(new Image("res\\LevelSelectLevelThree.PNG"), 0, 0);
 		}
-		
-		if(back) {
+
+		if (back) {
 			g.drawImage(new Image("res\\LevelSelectLevelBack.PNG"), 0, 0);
 		}
-		
+
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame sbg, int delta) throws SlickException {
+	public void update(GameContainer container, StateBasedGame sbg, int delta)
+			throws SlickException {
 		int xPos = Mouse.getX();
 		int yPos = Mouse.getY();
-		
+
 		Input input = container.getInput();
-		
+
 		// Level One
-		if((xPos<550 && xPos>250) && (yPos<524 && yPos>424)){
-			if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+		if ((xPos < 550 && xPos > 250) && (yPos < 524 && yPos > 424)) {
+			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 				levelOne = true;
 			} else {
-				if(levelOne){
+				if (levelOne) {
 					// TODO
 					sbg.enterState(2);
 				}
 				levelOne = false;
 			}
-			
+
 		} else {
 			levelOne = false;
 		}
-		
-		//Level two
-		if((xPos<550 && xPos>250) && (yPos<390 && yPos>290)){
-			if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+
+		// Level two
+		if ((xPos < 550 && xPos > 250) && (yPos < 390 && yPos > 290)) {
+			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 				levelTwo = true;
 			} else {
-				if(levelTwo){
+				if (levelTwo) {
 					// TODO
 					sbg.enterState(3);
 					playMusic();
@@ -93,28 +97,28 @@ public class LevelSelect extends BasicGameState implements MusicListener {
 		} else {
 			levelTwo = false;
 		}
-		
-		//Level three
-		if((xPos<550 && xPos>250) && (yPos<260 && yPos>160)){
-			if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+
+		// Level three
+		if ((xPos < 550 && xPos > 250) && (yPos < 260 && yPos > 160)) {
+			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 				levelThree = true;
 			} else {
-				if(levelThree){
+				if (levelThree) {
 					// TODO
-					//sbg.enterState(4)
+					// sbg.enterState(4)
 				}
 				levelThree = false;
 			}
 		} else {
 			levelThree = false;
 		}
-		
-		//back
-		if((xPos<550 && xPos>250) && (yPos<133 && yPos>33)){
-			if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+
+		// back
+		if ((xPos < 550 && xPos > 250) && (yPos < 133 && yPos > 33)) {
+			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 				back = true;
 			} else {
-				if(back) {
+				if (back) {
 					sbg.enterState(0);
 				}
 				back = false;
@@ -131,20 +135,24 @@ public class LevelSelect extends BasicGameState implements MusicListener {
 		return ID;
 	}
 
-	private void playMusic() throws SlickException{
-		Music openingMenuMusic = new Music("res//openingMusic.ogg");
+	private void playMusic() throws SlickException {
+		openingMenuMusic = new Music("res//openingMusic.ogg");
 		openingMenuMusic.loop();
+	}
+
+	public void stopMusic() {
+		openingMenuMusic.stop();
 	}
 
 	@Override
 	public void musicEnded(Music arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void musicSwapped(Music arg0, Music arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

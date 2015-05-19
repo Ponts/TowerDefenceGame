@@ -2,39 +2,41 @@ package towerdefensegame;
 
 public class Player {
 	private int health, money, kills;
-	public Player(){
+
+	public Player() {
 		health = 100;
 		money = 500;
 		kills = 0;
 	}
-	
-	public void pay(int cost){
+
+	public void pay(int cost) {
 		money = money - cost;
 	}
-	
+
 	/**
-	 * Player killed a enemy,  increase no of kills.
+	 * Player killed a enemy, increase no of kills.
 	 */
-	public void killed()
-	{
+	public void killed() {
 		kills++;
 	}
-	
-	public void takeDamage(int damage){
-		health = health -damage;
+
+	public void takeDamage(int damage) {
+		health = health - damage;
 	}
-	
-	public int getMoney(){
+
+	public int getMoney() {
 		return money;
 	}
-	
-	public void getMoney(int money){
+
+	public void getMoney(int money) {
 		this.money += money;
 	}
-	
-	public int getHealth(){
+
+	public int getHealth() {
 		return health;
 	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
 }
-
-
