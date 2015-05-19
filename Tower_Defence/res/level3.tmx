@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="18" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="tileset3" tilewidth="32" tileheight="32">
+  <image source="../../Pictures/tileset3.png" width="1024" height="704"/>
+  <terraintypes>
+   <terrain name="New Terrain" tile="131"/>
+  </terraintypes>
+ </tileset>
+ <layer name="Road" width="25" height="18">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjADfwYMKOqW0HMWKUuI1cO4g1a9SOgbWD2LRA7bSLyz3DxQ5a5Xlc9g2UHQDql3psCAcAAA==
+  </data>
+ </layer>
+ <layer name="Scenery" width="25" height="18">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC62TOQ7CMBBFx+lSwiXSIEVwolTgw0AJNRUS0LBcwBUFFRInYDkI30qAIct4EjHSly07/u/HC1G1xoZoAllTM1lT64jogrYH9XVLPgXGsg1jCI2U3iuTr/MaROT8WCr034w2dTLffFpJjBv87tADepb2n3vEUNIgzC2lzNqc8MqaPJIAQ8pWx7B533nZwjvEkLJt0G7pl5EwNh8LeDkunu1M1f/owvDfhvL+gxHKq2HscCf30AE6CvezdLYZvwO2eHP8nDhjCl+vWdFqGE3Fz4kz4C2u47w4z++ahHlXt1dgOOR3GkaorkbeVw3jLX7Xurx9DeNMVc8yl++rVbz1VMgrcaV/mmN8Ab0Anj06CAgHAAA=
+  </data>
+ </layer>
+ <layer name="collision" width="25" height="18">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC5XUS08TURjG8TPduQDt9SuwQbT08jnodV0EpUvUtnsVdYOJStv1oEKCBLwAXY8ImpCgtEH3KupKEC+s+U86Rw7TmWlt8ss5ndO+zzuXM6OaEJcwhnFcxhVMoIgf2MeBx3zBJ8SOEMKPAIIIIYwIbvCbm7iFKdzGHdxtZ+h9/L8fZ+E2lxlRDCOGOBJIYpZaj/AYTzCHeas306BPGEOMFzzmMiOFNDLIIoc8XlFvHa+xgU28wVslpxdmRhMtXEcJZVTwiVqf8QV7+Ipv+G7LOIMBF6zpP6l1iF+YQRU11EXvfVKrIFw+rOnn6MmPAFY4too1NIR3b04ZxfbcMDHXZcZFakcxjCBCCCOiuXXW/t9TxkVxOmNAyVaPjVArhTRiiCOBpHbSk1NvW6LzPNwyJql1FdeQQRY55K372q3fXjLuU+sBHmIGVdRQtzK69dtLxnNqvcBL855jFWtoOOwB5d4W1GeA74b9PqkZ09Qy3bPGXXzAR48Mr2dBnreaQe1Ck3ot/MYf/MURlrCMZ9q/vVawPwcq1g2na0WGQf+Gn+NBhBBGBNvUfof3VobsxW3sdl3p24gxxpFA0tf5jpbUZ+1/9r6ZYV6fLOs55B3e0dKWQ317rnpd5b6SGSXWy6jgPNR3tBenXPs5yYwqx2qo4xhc+z2nCAcAAA==
+  </data>
+ </layer>
+</map>
