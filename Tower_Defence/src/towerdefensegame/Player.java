@@ -39,4 +39,8 @@ public class Player {
 	public void setHealth(int health) {
 		this.health = health;
 	}
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
 }

@@ -99,9 +99,14 @@ public class LevelTwo extends BasicGameState {
 
 		// go back to level select
 		if (input.isKeyPressed(input.KEY_ESCAPE)) {
+			stopMusic();
+			resetLevel(false);
 			sbg.enterState(1);
-			openingMenuMusic.play();
-			openingMenuMusic.stop();
+		}
+
+		if (input.isKeyPressed(input.KEY_P)) {
+			stopMusic();
+			sbg.enterState(1);
 		}
 
 		// spawn different towers
@@ -155,7 +160,7 @@ public class LevelTwo extends BasicGameState {
 					enemies.remove(c);
 					player.takeDamage(c.getDamage());
 					if (player.getHealth() <= 0) {
-						resetLevel();
+						resetLevel(true);
 						sbg.enterState(0);
 						container.setMouseGrabbed(false);
 						System.out.println("Game Over");
@@ -226,16 +231,26 @@ public class LevelTwo extends BasicGameState {
 		roundNo++;
 	}
 
-	private void resetLevel() throws SlickException {
+	private void resetLevel(boolean gameOver) throws SlickException {
 		player.setHealth(100);
 		enemies.clear();
 		towers.clear();
 		bullets.clear();
+		player.setMoney(500);
 		roundNo = 0;
 		openingMenuMusic.stop();
-		Music end = new Music("res//gameover.ogg");
-		end.play();
-
+		if (gameOver) {
+			gameOverMusic();
+		}
 	}
 
+	private void gameOverMusic() throws SlickException {
+		Music end = new Music("res//gameover.ogg");
+		end.play();
+	}
+
+	private void stopMusic() {
+		openingMenuMusic.play();
+		openingMenuMusic.stop();
+	}
 }

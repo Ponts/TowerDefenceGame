@@ -25,7 +25,7 @@ public class Tower {
 			this.reloadTime = 1000;
 			this.currentLoad = 0;
 			this.damage = 50;
-			this.range = 32 * 3;
+			this.range = 32 * 4;
 			this.cost = 100;
 			this.upgradeMultiplier = 2;
 			this.setBulletName("bullet-red");
@@ -35,7 +35,7 @@ public class Tower {
 			this.reloadTime = 50;
 			this.currentLoad = 0;
 			this.damage = 5;
-			this.range = 32 * 4;
+			this.range = 32 * 3;
 			this.cost = 200;
 			this.upgradeMultiplier = 3;
 			this.setBulletName("rapidBullet");
