@@ -141,6 +141,7 @@ public class LevelSelect extends BasicGameState implements MusicListener {
 	}
 
 	public void stopMusic() {
+		openingMenuMusic.play();
 		openingMenuMusic.stop();
 	}
 

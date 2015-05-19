@@ -233,10 +233,10 @@ public class LevelTwo extends BasicGameState {
 
 	private void resetLevel(boolean gameOver) throws SlickException {
 		player.setHealth(100);
+		player.setMoney(500);
 		enemies.clear();
 		towers.clear();
 		bullets.clear();
-		player.setMoney(500);
 		roundNo = 0;
 		openingMenuMusic.stop();
 		if (gameOver) {
